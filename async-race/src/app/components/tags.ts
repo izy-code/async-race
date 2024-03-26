@@ -6,6 +6,9 @@ export const header = (props: TagProps, ...children: ChildrenType[]): BaseCompon
 export const main = (props: TagProps, ...children: ChildrenType[]): BaseComponent =>
   new BaseComponent({ ...props, tag: 'main' }, ...children);
 
+export const nav = (props: TagProps, ...children: ChildrenType[]): BaseComponent =>
+  new BaseComponent({ ...props, tag: 'nav' }, ...children);
+
 export const div = (props: TagProps<HTMLDivElement>, ...children: ChildrenType[]): BaseComponent<HTMLDivElement> =>
   new BaseComponent(props, ...children);
 

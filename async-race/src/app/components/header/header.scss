@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header__title {
+  margin: 0;
+}
+
+.header__nav {
+  display: flex;
+  gap: 30px;
+}
+
