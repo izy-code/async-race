@@ -1,6 +1,8 @@
 import type CustomEventName from '@/app/events';
 
-export type Handler = (details?: Record<string, unknown>) => void;
+type EventDetails = Record<string, unknown>;
+
+export type Handler = (details?: EventDetails) => void;
 
 export default class EventEmitter {
   private handlers: Record<string, Handler[]> = {};
@@ -29,7 +31,7 @@ export default class EventEmitter {
     }
   }
 
-  public emit(evt: CustomEventName, details?: Record<string, unknown>): void {
+  public emit(evt: CustomEventName, details?: EventDetails): void {
     const currentEventHandlers = this.handlers[evt];
 
     if (!currentEventHandlers) {
