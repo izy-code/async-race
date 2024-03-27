@@ -3,7 +3,6 @@ import type BaseComponent from './components/base-component';
 import Router, { type Route } from './router/router';
 import { Page } from './router/pages';
 import { div } from './components/tags';
-import LocalStorage from './utils/local-storage';
 
 const COMPONENT_RENEWAL_TRANSITION_TIME_MS = 600;
 const OPACITY_TRANSITION_TIME_MS = 700;
@@ -13,11 +12,8 @@ export default class App {
 
   private router: Router;
 
-  private storage: LocalStorage;
-
   constructor() {
     this.container = div({ className: 'app-container' });
-    this.storage = new LocalStorage();
     this.router = new Router(this.createRoutes());
   }
 
@@ -54,9 +50,9 @@ export default class App {
         const pageNumber = Number(suffix);
 
         if (suffix) {
-          this.setPage(new GaragePageComponent(this.router, this.storage, pageNumber));
+          this.setPage(new GaragePageComponent(this.router, pageNumber));
         } else {
-          this.setPage(new GaragePageComponent(this.router, this.storage, 1));
+          this.setPage(new GaragePageComponent(this.router, 1));
         }
       })
       .catch((error) => {
@@ -70,9 +66,9 @@ export default class App {
         const pageNumber = Number(suffix);
 
         if (suffix) {
-          this.setPage(new WinnersPageComponent(this.router, this.storage, pageNumber));
+          this.setPage(new WinnersPageComponent(this.router, pageNumber));
         } else {
-          this.setPage(new WinnersPageComponent(this.router, this.storage, 1));
+          this.setPage(new WinnersPageComponent(this.router, 1));
         }
       })
       .catch((error) => {
