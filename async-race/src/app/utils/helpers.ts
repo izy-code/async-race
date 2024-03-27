@@ -43,12 +43,3 @@ export const getClosestFromEventTarget = (evt: Event | Touch, closestSelectors: 
 
   return target.closest(closestSelectors);
 };
-
-export const dispatchCustomEvent = <T>(node: HTMLElement, eventType: string, detailObject?: T): void => {
-  node.dispatchEvent(
-    new CustomEvent(eventType, {
-      bubbles: true,
-      detail: detailObject,
-    }),
-  );
-};
