@@ -2,7 +2,6 @@ export interface Car {
   id: number;
   name: string;
   color: string;
-  [key: string]: unknown;
 }
 
 export interface EngineResponse {

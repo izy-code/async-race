@@ -1,6 +1,5 @@
 import BaseComponent from '@/app/components/base-component';
 import CustomEventName from '@/app/events';
-import type { Handler } from '@/app/utils/event-emitter';
 import type EventEmitter from '@/app/utils/event-emitter';
 
 export default class PageInfoComponent extends BaseComponent<HTMLHeadingElement> {
@@ -14,9 +13,7 @@ export default class PageInfoComponent extends BaseComponent<HTMLHeadingElement>
     emitter.on(CustomEventName.PAGE_UPDATE, this.setPageInfo);
   }
 
-  private setPageInfo: Handler = (details): void => {
-    if (details && typeof details.carsCount === 'number') {
-      this.getNode().textContent = `${this.pageName} (${details.carsCount})`;
-    }
+  private setPageInfo = (details: { carsCount: number }): void => {
+    this.getNode().textContent = `${this.pageName} (${details.carsCount})`;
   };
 }

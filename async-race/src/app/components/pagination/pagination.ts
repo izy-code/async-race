@@ -4,7 +4,6 @@ import type Router from '@/app/router/router';
 import ButtonComponent from '../button/button';
 import CustomEventName from '@/app/events';
 import type EventEmitter from '@/app/utils/event-emitter';
-import type { Handler } from '@/app/utils/event-emitter';
 
 export default class PaginationComponent extends BaseComponent<HTMLDivElement> {
   private text: BaseComponent<HTMLParagraphElement>;
@@ -30,12 +29,10 @@ export default class PaginationComponent extends BaseComponent<HTMLDivElement> {
     nextPageButton.addListener('click', () => emitter.emit(CustomEventName.NEXT_PAGE_SWITCH));
     prevPageButton.addListener('click', () => emitter.emit(CustomEventName.PREV_PAGE_SWITCH));
 
-    this.appendChildren([this.text, nextPageButton, prevPageButton]);
+    this.appendChildren([this.text, prevPageButton, nextPageButton]);
   }
 
-  private setPageNumber: Handler = (details): void => {
-    if (details && typeof details.pageNumber === 'number') {
-      this.text.setTextContent(`Page #${details.pageNumber}`);
-    }
+  private setPageNumber = (details: { pageNumber: number }): void => {
+    this.text.setTextContent(`Page #${details.pageNumber}`);
   };
 }

@@ -1,8 +1,7 @@
 import type CustomEventName from '@/app/events';
 
-type EventDetails = Record<string, unknown>;
-
-export type Handler = (details?: EventDetails) => void;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Handler<T extends any[] = any[]> = (...args: T) => void;
 
 export default class EventEmitter {
   private handlers: Record<string, Handler[]> = {};
@@ -31,7 +30,7 @@ export default class EventEmitter {
     }
   }
 
-  public emit(evt: CustomEventName, details?: EventDetails): void {
+  public emit(evt: CustomEventName, details?: unknown): void {
     const currentEventHandlers = this.handlers[evt];
 
     if (!currentEventHandlers) {

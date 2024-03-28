@@ -3,7 +3,6 @@ import ButtonComponent from '@/app/components/button/button';
 import { input } from '@/app/components/tags';
 import CustomEventName from '@/app/events';
 import type { Car } from '@/app/interfaces';
-import type { Handler } from '@/app/utils/event-emitter';
 import type EventEmitter from '@/app/utils/event-emitter';
 
 export default class CarUpdateComponent extends BaseComponent<HTMLDivElement> {
@@ -51,13 +50,7 @@ export default class CarUpdateComponent extends BaseComponent<HTMLDivElement> {
     this.appendChildren([this.nameInput, this.colorInput, this.carUpdateButton]);
   }
 
-  private enableComponents: Handler = (selectedCar): void => {
-    if (!(selectedCar && typeof selectedCar.color === 'string' && typeof selectedCar.name === 'string')) {
-      return;
-    }
-
-    this.selectedCar = selectedCar as unknown as Car;
-
+  private enableComponents = (selectedCar: Car): void => {
     this.colorInput.getNode().value = selectedCar.color;
     this.nameInput.getNode().value = selectedCar.name;
 
