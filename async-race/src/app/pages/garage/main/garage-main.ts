@@ -6,6 +6,7 @@ import type Router from '@/app/router/router';
 import EventEmitter from '@/app/utils/event-emitter';
 import CarCreationComponent from './creation/car-creation';
 import CarUpdateComponent from './update/car-update';
+import RaceButtonsComponent from './race-buttons/race-buttons';
 
 export default class GarageMainComponent extends BaseComponent {
   private router: Router;
@@ -20,10 +21,11 @@ export default class GarageMainComponent extends BaseComponent {
 
     const pageName = Page.GARAGE.charAt(0).toUpperCase() + Page.GARAGE.slice(1);
     const pageInfo = new PageInfoComponent(this.emitter, pageName);
-    const pagination = new PaginationComponent(this.router, this.emitter, pageNumber);
     const carCreation = new CarCreationComponent(this.emitter);
     const carUpdate = new CarUpdateComponent(this.emitter);
+    const raceButtons = new RaceButtonsComponent(this.emitter);
+    const pagination = new PaginationComponent(this.router, this.emitter, pageNumber);
 
-    this.appendChildren([pageInfo, carCreation, carUpdate, pagination]);
+    this.appendChildren([pageInfo, carCreation, carUpdate, raceButtons, pagination]);
   }
 }

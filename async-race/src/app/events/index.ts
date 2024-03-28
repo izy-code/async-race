@@ -5,6 +5,9 @@ enum CustomEventName {
   CAR_CREATION = 'carCreation',
   CAR_SELECTION = 'carSelection',
   CAR_UPDATE = 'carUpdate',
+  RACE_START = 'raceStart',
+  RACE_RESET = 'raceReset',
+  CARS_GENERATE = 'carsGenerate',
 }
 
 export default CustomEventName;
