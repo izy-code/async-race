@@ -10,14 +10,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: $width-min;
+  min-width: $width-min - 17px;
   margin: 0;
   font-family: $font-primary;
   font-size: 18px;
   line-height: 150%;
   font-weight: 400;
-  color: $color-black-olive;
-  background-color: $color-iguana-green;
+  color: $color-bone;
+  background-color: $color-black-olive;
 }
 
 .no-scroll {
