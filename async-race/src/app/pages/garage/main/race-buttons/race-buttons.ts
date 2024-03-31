@@ -8,29 +8,29 @@ export default class RaceButtonsComponent extends BaseComponent<HTMLDivElement> 
     super({ className: 'garage-page__race-buttons', tag: 'div' });
 
     const startButton = ButtonComponent({
-      className: 'garage-page__start-button button',
+      className: 'garage-page__start-button button button--confirm',
       textContent: 'Start race',
       buttonType: 'button',
     });
     const resetButton = ButtonComponent({
-      className: 'garage-page__reset-button button',
+      className: 'garage-page__reset-button button button--cancel',
       textContent: 'Reset race',
       buttonType: 'button',
     });
     const generationButton = ButtonComponent({
-      className: 'garage-page__random-create-button button',
+      className: 'garage-page__random-create-button button button--continue',
       textContent: 'Generate cars',
       buttonType: 'button',
     });
 
     startButton.addListener('click', () => {
-      emitter.emit(CustomEventName.RACE_START);
+      emitter.emit(CustomEventName.RACE_START_CLICK);
     });
     resetButton.addListener('click', () => {
-      emitter.emit(CustomEventName.RACE_RESET);
+      emitter.emit(CustomEventName.RACE_RESET_CLICK);
     });
     generationButton.addListener('click', () => {
-      emitter.emit(CustomEventName.CARS_GENERATE);
+      emitter.emit(CustomEventName.CARS_GENERATION_CLICK);
     });
 
     this.appendChildren([startButton, resetButton, generationButton]);
