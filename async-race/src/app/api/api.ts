@@ -1,6 +1,6 @@
 import type { Car, EngineResponse, Winner } from '../interfaces';
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'http://127.0.0.1:3000';
 const ENGINE_SUCCESS_CODE = 200;
 const REQUEST_HEADERS = {
   'Content-Type': 'application/json',
@@ -34,6 +34,8 @@ enum Order {
 }
 
 export default class Api {
+  private static abortControllers: { [key: number]: AbortController } = {};
+
   private static async getFetchResponse(url: string, options?: RequestInit): Promise<Response> {
     const response = await fetch(url, options);
 
@@ -87,15 +89,38 @@ export default class Api {
   }
 
   public static async stopEngine(id: number): Promise<void> {
+    const currentController = Api.abortControllers[id];
+
+    if (currentController) {
+      currentController.abort();
+      delete Api.abortControllers[id];
+    }
+
     await Api.getFetchResponse(`${BASE_URL}/${Route.ENGINE}?id=${id}&status=${EngineStatus.STOPPED}`, {
       method: Method.PATCH,
     });
   }
 
   public static async isDriveSuccessful(id: number): Promise<boolean> {
-    const response = await Api.getFetchResponse(`${BASE_URL}/${Route.ENGINE}?id=${id}&status=${EngineStatus.DRIVE}`, {
-      method: Method.PATCH,
-    });
+    const abortController = new AbortController();
+    let response;
+
+    Api.abortControllers[id] = abortController;
+
+    try {
+      response = await Api.getFetchResponse(`${BASE_URL}/${Route.ENGINE}?id=${id}&status=${EngineStatus.DRIVE}`, {
+        method: Method.PATCH,
+        signal: abortController.signal,
+      });
+    } catch (error) {
+      if (error instanceof Error && !(error.name === 'AbortError')) {
+        throw error;
+      }
+    }
+
+    if (!response) {
+      return false;
+    }
 
     return response.status === ENGINE_SUCCESS_CODE;
   }
