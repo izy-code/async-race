@@ -5,9 +5,9 @@
   padding: 0.5em 1.2em;
   font-family: $font-primary;
   font-size: 1em;
-  font-weight: inherit;
+  font-weight: 500;
   text-decoration: none;
-  color: $color-black-olive;
+  color: $color-black;
   background-color: $color-sandy-brown;
   border: none;
   border-radius: 4px;
@@ -45,14 +45,14 @@
   &--cancel {
     background-color: $color-light-red;
 
-    &:hover,
-    &:focus-visible {
+    &:hover:not(:is(:disabled, .button--disabled)),
+    &:focus-visible:not(:is(:disabled, .button--disabled)) {
       @include media-hover {
         background-color: $color-red;
       }
     }
 
-    &:active {
+    &:active:not(:is(:disabled, .button--disabled)) {
       background-color: $color-dark-red;
     }
   }
@@ -60,14 +60,14 @@
   &--confirm {
     background-color: $color-iguana-green;
 
-    &:hover,
-    &:focus-visible {
+    &:hover:not(:is(:disabled, .button--disabled)),
+    &:focus-visible:not(:is(:disabled, .button--disabled)) {
       @include media-hover {
         background-color: $color-green;
       }
     }
 
-    &:active {
+    &:active:not(:is(:disabled, .button--disabled)) {
       background-color: $color-dark-green;
     }
   }
@@ -75,14 +75,14 @@
   &--continue {
     background-color: $color-light-blue;
 
-    &:hover,
-    &:focus-visible {
+    &:hover:not(:is(:disabled, .button--disabled)),
+    &:focus-visible:not(:is(:disabled, .button--disabled)) {
       @include media-hover {
         background-color: $color-blue;
       }
     }
 
-    &:active {
+    &:active:not(:is(:disabled, .button--disabled)) {
       background-color: $color-dark-blue;
     }
   }
