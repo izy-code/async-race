@@ -1,0 +1,11 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+
+.pagination__page-number {
+  margin: 0;
+  font-size: 22px;
+}
