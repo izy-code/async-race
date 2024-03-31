@@ -1,16 +1,16 @@
 import type CustomEventName from '@/app/events';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Handler<T extends any[] = any[]> = (...args: T) => void;
+type Handler<T extends any[] = any[]> = (...args: T) => void | Promise<void>;
 
 export default class EventEmitter {
   private handlers: Record<string, Handler[]> = {};
 
   public on(evt: CustomEventName, handler: Handler): void {
-    let currentEventHandlers = this.handlers[evt];
+    const currentEventHandlers = this.handlers[evt] || [];
 
-    if (!currentEventHandlers) {
-      currentEventHandlers = [];
+    if (currentEventHandlers.length === 0) {
+      this.handlers[evt] = currentEventHandlers;
     }
 
     currentEventHandlers.push(handler);
@@ -37,6 +37,7 @@ export default class EventEmitter {
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     currentEventHandlers.forEach((handler) => handler(details));
   }
 }
