@@ -1,3 +1,4 @@
+import './garage-page.scss';
 import BaseComponent from '@/app/components/base-component';
 import HeaderComponent from '@/app/components/header/header';
 import { Page } from '@/app/router/pages';
@@ -7,13 +8,13 @@ import GarageMainComponent from './main/garage-main';
 export default class GaragePageComponent extends BaseComponent {
   private router: Router;
 
-  constructor(router: Router, pageNumber: number) {
+  constructor(router: Router) {
     super({ className: 'app-container__page garage-page' });
 
     this.router = router;
 
     const header = new HeaderComponent(router, Page.GARAGE);
-    const main = new GarageMainComponent(router, pageNumber);
+    const main = new GarageMainComponent(router);
 
     this.appendChildren([header, main]);
   }
