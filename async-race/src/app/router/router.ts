@@ -1,13 +1,8 @@
-import { Page, SUFFIX } from './pages';
+import { Page } from './pages';
 
 export type Route = {
   path: Page;
-  handleRouteChange: (suffix: string) => void;
-};
-
-export type HashParts = {
-  page: string;
-  suffix: string;
+  handleRouteChange: () => void;
 };
 
 export default class Router {
@@ -26,30 +21,12 @@ export default class Router {
     }
 
     const urlHashFragment = window.location.hash.slice(1);
-    const urlHyphenIndex = urlHashFragment.indexOf('-');
-    const urlHashData: HashParts = {
-      page: urlHyphenIndex !== -1 ? urlHashFragment.slice(0, urlHyphenIndex) : urlHashFragment,
-      suffix: urlHyphenIndex !== -1 ? urlHashFragment.slice(urlHyphenIndex + 1) : '',
-    };
 
-    this.urlChangeHandler(urlHashData);
+    this.urlChangeHandler(urlHashFragment);
   };
 
-  private urlChangeHandler(newUrlData: HashParts): void {
-    const { suffix } = newUrlData;
-    let newRoutePath = '';
-
-    if (/^\d+$/.test(suffix)) {
-      newRoutePath = `${newUrlData.page}-${SUFFIX}`;
-    } else if (suffix !== '') {
-      this.navigate(newUrlData.page);
-
-      return;
-    } else {
-      newRoutePath = newUrlData.page;
-    }
-
-    const validRoute = this.validRoutes.find((route) => String(route.path) === newRoutePath);
+  private urlChangeHandler(newUrl: string): void {
+    const validRoute = this.validRoutes.find((route) => String(route.path) === newUrl);
 
     if (!validRoute) {
       this.redirectToGaragePage();
@@ -57,7 +34,7 @@ export default class Router {
       return;
     }
 
-    validRoute.handleRouteChange(suffix);
+    validRoute.handleRouteChange();
   }
 
   private redirectToGaragePage(): void {

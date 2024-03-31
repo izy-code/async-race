@@ -12,6 +12,8 @@ export default class App {
 
   private router: Router;
 
+  private loadedPageComponents: Record<string, BaseComponent> = {};
+
   constructor() {
     this.container = div({ className: 'app-container' });
     this.router = new Router(this.createRoutes());
@@ -31,45 +33,33 @@ export default class App {
       handleRouteChange: this.handleSwitchToGaragePage,
     },
     {
-      path: Page.GARAGE_WITH_SUFFIX,
-      handleRouteChange: this.handleSwitchToGaragePage,
-    },
-    {
       path: Page.WINNERS,
-      handleRouteChange: this.handleSwitchToWinnersPage,
-    },
-    {
-      path: Page.WINNERS_WITH_SUFFIX,
       handleRouteChange: this.handleSwitchToWinnersPage,
     },
   ];
 
-  private handleSwitchToGaragePage = (suffix: string): void => {
+  private handleSwitchToGaragePage = (): void => {
     import('@/app/pages/garage/garage-page')
       .then(({ default: GaragePageComponent }) => {
-        const pageNumber = Number(suffix);
-
-        if (suffix) {
-          this.setPage(new GaragePageComponent(this.router, pageNumber));
-        } else {
-          this.setPage(new GaragePageComponent(this.router, 1));
+        if (!this.loadedPageComponents[Page.GARAGE]) {
+          this.loadedPageComponents[Page.GARAGE] = new GaragePageComponent(this.router);
         }
+
+        this.setPage(this.loadedPageComponents[Page.GARAGE]);
       })
       .catch((error) => {
         throw new Error(`Failed to load garage page module: ${error}`);
       });
   };
 
-  private handleSwitchToWinnersPage = (suffix: string): void => {
+  private handleSwitchToWinnersPage = (): void => {
     import('@/app/pages/winners/winners-page')
       .then(({ default: WinnersPageComponent }) => {
-        const pageNumber = Number(suffix);
-
-        if (suffix) {
-          this.setPage(new WinnersPageComponent(this.router, pageNumber));
-        } else {
-          this.setPage(new WinnersPageComponent(this.router, 1));
+        if (!this.loadedPageComponents[Page.WINNERS]) {
+          this.loadedPageComponents[Page.WINNERS] = new WinnersPageComponent(this.router);
         }
+
+        this.setPage(this.loadedPageComponents[Page.WINNERS]);
       })
       .catch((error) => {
         throw new Error(`Failed to load winners page module: ${error}`);
@@ -80,7 +70,7 @@ export default class App {
     this.container.removeClass('app-container--opaque');
 
     setTimeout(() => {
-      this.container.removeChildren();
+      this.container.getNode().replaceChildren();
       this.container.append(pageComponent);
     }, COMPONENT_RENEWAL_TRANSITION_TIME_MS);
 
