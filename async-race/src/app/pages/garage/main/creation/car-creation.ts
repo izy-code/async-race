@@ -11,10 +11,11 @@ export default class CarCreationComponent extends BaseComponent<HTMLDivElement> 
     const colorInput = input({
       className: 'garage-page__color-input',
       type: 'color',
+      value: '#aaaaaa',
     });
     const nameInput = input({
       className: 'garage-page__name-input',
-      maxLength: 16,
+      maxLength: 22,
       placeholder: 'Enter car name',
     });
     const carCreationButton = ButtonComponent({
@@ -33,7 +34,7 @@ export default class CarCreationComponent extends BaseComponent<HTMLDivElement> 
       const carName = nameInput.getNode().value;
       const carColor = colorInput.getNode().value;
 
-      emitter.emit(CustomEventName.CAR_CREATION, {
+      emitter.emit(CustomEventName.CAR_CREATION_CLICK, {
         carName,
         carColor,
       });
