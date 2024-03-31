@@ -1,0 +1,139 @@
+@use "../../../global-styles/forward" as *;
+
+.garage-page__main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: $width-max;
+}
+
+.garage-page__car-creation,
+.garage-page__car-update {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.garage-page__car-update {
+  margin-bottom: 20px;
+}
+
+.garage-page__update-button,
+.garage-page__create-button {
+  min-width: 134px;
+}
+
+.garage-page__name-input {
+  padding-inline: 5px;
+  font-family: inherit;
+  font-size: inherit;
+  border: 2px solid $color-black-olive;
+  border-radius: 4px;
+
+  &::placeholder {
+    opacity: 1;
+    transition: opacity 0.6s ease;
+  }
+
+  &:disabled {
+    border-color: $color-granite;
+
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+}
+
+.garage-page__color-input {
+  height: 40px;
+  border: 2px solid $color-black-olive;
+  cursor: pointer;
+
+  &:disabled {
+    border-color: $color-granite;
+    cursor: default;
+  }
+}
+
+.garage-page__race-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.garage-page__race-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.garage-page__track {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.garage-page__track-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.garage-page__track-name {
+  margin: 0;
+}
+
+.garage-page__track-container {
+  position: relative;
+  height: 110px;
+  border-bottom: 18px dashed $color-granite;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 160px;
+    bottom: 0;
+    width: 90px;
+    height: 92px;
+    background-image: url("../../../assets/images/flag.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+.garage-page__track-input {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 120px;
+  background-color: transparent;
+  pointer-events: none;
+  appearance: none;
+
+  &::-webkit-slider-thumb {
+    display: block;
+    width: 160px;
+    height: 100px;
+    background-color: var(--color-car);
+    mask-image: url("../../../assets/images/car.svg");
+    mask-size: 100%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    appearance: none;
+  }
+
+  &::-moz-range-thumb {
+    display: block;
+    width: 180px;
+    height: 100px;
+    background-color: var(--color-car);
+    mask-image: url("../../../assets/images/car.svg");
+    mask-size: 100%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    appearance: none;
+  }
+}
+
