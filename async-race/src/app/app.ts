@@ -17,6 +17,16 @@ export default class App {
   constructor() {
     this.container = div({ className: 'app-container' });
     this.router = new Router(this.createRoutes());
+
+    if (!this.loadedPageComponents[Page.WINNERS]) {
+      import('@/app/pages/winners/winners-page')
+        .then(({ default: WinnersPageComponent }) => {
+          this.loadedPageComponents[Page.WINNERS] = new WinnersPageComponent(this.router);
+        })
+        .catch((error) => {
+          throw new Error(`Failed to load winners page module: ${error}`);
+        });
+    }
   }
 
   public start(): void {
