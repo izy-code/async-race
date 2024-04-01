@@ -49,6 +49,7 @@ export default class GarageController {
         car: winner,
         finishTime: parseFloat(this.state.getWinnersTime()),
       });
+      this.state.onRaceEnd();
     }
 
     if (!engineStatus) {

@@ -36,6 +36,7 @@ export default class GarageState {
 
   public onRaceEnd = (): void => {
     this.isRaceInProgress = false;
+    this.movingCars = [];
   };
 
   public onNextPage = (): void => {
@@ -73,6 +74,8 @@ export default class GarageState {
       if (this.getRaceStatus() && !this.raceWinner) {
         this.winnersTime = ((driveEndTime.getTime() - driveStartTime.getTime()) / MS_PER_SECOND).toFixed(2);
         this.raceWinner = drivenCar;
+
+        return true;
       }
 
       this.onCarMovementEnd(drivenCar);
