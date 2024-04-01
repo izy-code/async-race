@@ -68,5 +68,21 @@ export default class TrackButtonsComponent extends BaseComponent<HTMLDivElement>
         this.startButton.removeAttribute('disabled');
       }
     });
+    emitter.on(CustomEventName.RACE_START_CLICK, () => {
+      this.selectButton.setAttribute('disabled', '');
+      this.removeButton.setAttribute('disabled', '');
+    });
+    emitter.on(CustomEventName.RACE_RESET_CLICK, () => {
+      this.selectButton.removeAttribute('disabled');
+      this.removeButton.removeAttribute('disabled');
+    });
+  }
+
+  public clickStartButton(): void {
+    this.startButton.getNode().click();
+  }
+
+  public clickResetButton(): void {
+    this.resetButton.getNode().click();
   }
 }

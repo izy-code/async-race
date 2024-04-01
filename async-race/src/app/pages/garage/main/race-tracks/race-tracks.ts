@@ -34,13 +34,13 @@ export default class RaceTracksComponent extends BaseComponent<HTMLDivElement> {
 
   private onAllCarsStart = (): void => {
     this.tracks.forEach((track) => {
-      this.emitter.emit(CustomEventName.CAR_START_CLICK, track.getCar());
+      track.clickStartButton();
     });
   };
 
   private onAllCarsReset = (): void => {
     this.tracks.forEach((track) => {
-      this.emitter.emit(CustomEventName.CAR_RESET_VIEW, track.getCar());
+      track.clickResetButton();
     });
   };
 }

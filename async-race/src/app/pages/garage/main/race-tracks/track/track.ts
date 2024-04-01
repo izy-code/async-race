@@ -16,6 +16,8 @@ export default class TrackComponent extends BaseComponent<HTMLDivElement> {
 
   private intervalId = 0;
 
+  private trackButtons: TrackButtonsComponent;
+
   constructor(emitter: EventEmitter, trackCar: Car) {
     super({ className: 'garage-page__track', tag: 'div' });
 
@@ -33,7 +35,7 @@ export default class TrackComponent extends BaseComponent<HTMLDivElement> {
     });
     this.track.setAttribute('value', '0');
 
-    const trackButtons = new TrackButtonsComponent(emitter, trackCar);
+    this.trackButtons = new TrackButtonsComponent(emitter, trackCar);
 
     const trackContainer = div(
       {
@@ -42,7 +44,7 @@ export default class TrackComponent extends BaseComponent<HTMLDivElement> {
       this.track,
     );
 
-    this.appendChildren([this.trackName, trackButtons, trackContainer]);
+    this.appendChildren([this.trackName, this.trackButtons, trackContainer]);
 
     emitter.on(CustomEventName.CAR_MOVEMENT_VIEW, this.moveCar);
     emitter.on(CustomEventName.CAR_STOP_VIEW, this.stopCar);
@@ -50,6 +52,14 @@ export default class TrackComponent extends BaseComponent<HTMLDivElement> {
   }
 
   public getCar = (): Car => this.trackCar;
+
+  public clickStartButton = (): void => {
+    this.trackButtons.clickStartButton();
+  };
+
+  public clickResetButton = (): void => {
+    this.trackButtons.clickResetButton();
+  };
 
   public updateCar = (carData: Car): void => {
     this.trackName.setTextContent(carData.name);
