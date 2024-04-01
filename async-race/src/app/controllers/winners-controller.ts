@@ -75,7 +75,7 @@ export default class WinnersController {
     if (Object.keys(existingWinnerData).length !== 0) {
       await WinnersState.updateWinner({
         id: existingWinnerData.id,
-        wins: (+existingWinnerData.wins + 1).toString(),
+        wins: (winnerData.finishTime ? +existingWinnerData.wins + 1 : existingWinnerData.wins).toString(),
         time: (winnerData.finishTime
           ? Math.min(+existingWinnerData.time, winnerData.finishTime)
           : existingWinnerData.time
