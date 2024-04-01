@@ -42,11 +42,8 @@ export default class ModalComponent extends BaseComponent {
   };
 
   private showModal = (): void => {
-    setTimeout(() => {
-      this.addClass('modal--opaque');
-      this.confirmButton.getNode().focus();
-    }, 0);
-
+    this.addClass('modal--opaque');
+    this.confirmButton.getNode().focus();
     this.removeClass('modal--closed');
   };
 
