@@ -38,7 +38,7 @@ export default class PaginationComponent extends BaseComponent<HTMLDivElement> {
     });
     emitter.on(CustomEventName.RACE_RESET_CLICK, () => {
       this.nextPageButton.getNode().disabled = this.isNextButtonDisabled;
-      this.prevPageButton.getNode().disabled = this.isNextButtonDisabled;
+      this.prevPageButton.getNode().disabled = this.isPrevButtonDisabled;
     });
 
     this.nextPageButton.addListener('click', () => emitter.emit(CustomEventName.NEXT_PAGE_CLICK));
