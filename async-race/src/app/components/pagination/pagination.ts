@@ -57,10 +57,10 @@ export default class PaginationComponent extends BaseComponent<HTMLDivElement> {
       this.prevPageButton.removeAttribute('disabled');
       this.isPrevButtonDisabled = false;
     }
-    if (details.pageNumber === details.pageCount) {
+    if (details.pageNumber === details.pageCount || details.pageCount === 0) {
       this.nextPageButton.setAttribute('disabled', '');
       this.isNextButtonDisabled = true;
-    } else {
+    } else if (details.pageCount !== 0 && details.pageNumber < details.pageCount) {
       this.nextPageButton.removeAttribute('disabled');
       this.isNextButtonDisabled = false;
     }
