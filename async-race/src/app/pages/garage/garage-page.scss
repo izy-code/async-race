@@ -116,6 +116,12 @@
   pointer-events: none;
   appearance: none;
 
+  &--broken {
+    &::-webkit-slider-thumb {
+      transform: scaleY(-1);
+    }
+  }
+
   &::-webkit-slider-thumb {
     display: block;
     width: 110px;

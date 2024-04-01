@@ -99,6 +99,7 @@ export default class TrackComponent extends BaseComponent<HTMLDivElement> {
   private stopCar = (car: Car): void => {
     if (this.trackCar.id === car.id) {
       this.clearInterval();
+      this.track.addClass('garage-page__track-input--broken');
     }
   };
 
@@ -106,6 +107,7 @@ export default class TrackComponent extends BaseComponent<HTMLDivElement> {
     if (this.trackCar.id === carId) {
       this.clearInterval();
       this.track.setAttribute('value', '0');
+      this.track.removeClass('garage-page__track-input--broken');
     }
   };
 }
