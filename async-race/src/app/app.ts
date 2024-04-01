@@ -39,31 +39,33 @@ export default class App {
   ];
 
   private handleSwitchToGaragePage = (): void => {
-    import('@/app/pages/garage/garage-page')
-      .then(({ default: GaragePageComponent }) => {
-        if (!this.loadedPageComponents[Page.GARAGE]) {
+    if (!this.loadedPageComponents[Page.GARAGE]) {
+      import('@/app/pages/garage/garage-page')
+        .then(({ default: GaragePageComponent }) => {
           this.loadedPageComponents[Page.GARAGE] = new GaragePageComponent(this.router);
-        }
-
-        this.setPage(this.loadedPageComponents[Page.GARAGE]);
-      })
-      .catch((error) => {
-        throw new Error(`Failed to load garage page module: ${error}`);
-      });
+          this.setPage(this.loadedPageComponents[Page.GARAGE]);
+        })
+        .catch((error) => {
+          throw new Error(`Failed to load garage page module: ${error}`);
+        });
+    } else {
+      this.setPage(this.loadedPageComponents[Page.GARAGE]);
+    }
   };
 
   private handleSwitchToWinnersPage = (): void => {
-    import('@/app/pages/winners/winners-page')
-      .then(({ default: WinnersPageComponent }) => {
-        if (!this.loadedPageComponents[Page.WINNERS]) {
+    if (!this.loadedPageComponents[Page.WINNERS]) {
+      import('@/app/pages/winners/winners-page')
+        .then(({ default: WinnersPageComponent }) => {
           this.loadedPageComponents[Page.WINNERS] = new WinnersPageComponent(this.router);
-        }
-
-        this.setPage(this.loadedPageComponents[Page.WINNERS]);
-      })
-      .catch((error) => {
-        throw new Error(`Failed to load winners page module: ${error}`);
-      });
+          this.setPage(this.loadedPageComponents[Page.WINNERS]);
+        })
+        .catch((error) => {
+          throw new Error(`Failed to load winners page module: ${error}`);
+        });
+    } else {
+      this.setPage(this.loadedPageComponents[Page.WINNERS]);
+    }
   };
 
   private setPage(pageComponent: BaseComponent): void {
@@ -71,6 +73,7 @@ export default class App {
 
     setTimeout(() => {
       this.container.getNode().replaceChildren();
+      this.container.cleanComponentChildrenList();
       this.container.append(pageComponent);
     }, COMPONENT_RENEWAL_TRANSITION_TIME_MS);
 
