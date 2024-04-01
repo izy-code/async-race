@@ -85,10 +85,13 @@ export default class WinnersTableComponent extends BaseComponent<HTMLTableElemen
       closest.classList.toggle('winners-page__sort-element--arrow-up');
     } else {
       closest.classList.toggle('winners-page__sort-element--active');
-      closest.classList.add('winners-page__sort-element--arrow-up');
 
       this.sortElements.forEach((element) => {
-        if (element !== closest) {
+        if (element !== closest && element.classList.contains('winners-page__sort-element--active')) {
+          if (!element.classList.contains('winners-page__sort-element--arrow-up')) {
+            closest.classList.add('winners-page__sort-element--arrow-up');
+          }
+
           element.classList.remove('winners-page__sort-element--active');
           element.classList.remove('winners-page__sort-element--arrow-up');
         }
