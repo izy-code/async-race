@@ -23,12 +23,12 @@ enum EngineStatus {
   STOPPED = 'stopped',
   DRIVE = 'drive',
 }
-enum Sort {
+export enum SortBy {
   ID = 'id',
   WINS = 'wins',
   TIME = 'time',
 }
-enum Order {
+export enum SortOrder {
   ASC = 'ASC',
   DESC = 'DESC',
 }
@@ -128,8 +128,8 @@ export default class Api {
   public static async getWinners(
     page: number,
     limit: number,
-    sort: Sort,
-    order: Order,
+    sort: SortBy,
+    order: SortOrder,
   ): Promise<{ winners: Winner[]; totalCount: string | null }> {
     const response = await Api.getFetchResponse(
       `${BASE_URL}/${Route.WINNERS}?_page=${page ?? ''}&_limit=${limit ?? ''}&_sort=${sort ?? ''}&_order=${order ?? ''}`,
