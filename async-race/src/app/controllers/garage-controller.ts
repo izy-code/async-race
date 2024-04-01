@@ -40,7 +40,7 @@ export default class GarageController {
     const engineStatus = await this.state.onCarDrive(car);
     const winner = this.state.getWinner();
 
-    if (winner && winner.id === car.id && this.state.getRaceStatus()) {
+    if (engineStatus && winner && winner.id === car.id && this.state.getRaceStatus()) {
       this.emitter.emit(CustomEventName.MODAL_SHOW, {
         winnerName: winner.name,
         winnerTime: this.state.getWinnersTime(),
@@ -107,18 +107,14 @@ export default class GarageController {
     this.emitter.emit(CustomEventName.CAR_SELECTION_VIEW, car);
   };
 
-  private onRaceStart = async (): Promise<void> => {
-    await this.onRaceReset();
+  private onRaceStart = (): void => {
+    this.onRaceReset();
     this.state.onRaceStart();
     this.emitter.emit(CustomEventName.ALL_CARS_START);
   };
 
-  private onRaceReset = async (): Promise<void> => {
-    const carsOnTrack = this.state.getPageCars();
-
+  private onRaceReset = (): void => {
     this.state.onRaceEnd();
-
-    await Promise.allSettled(carsOnTrack.map((car) => this.onCarReset(car)));
 
     this.emitter.emit(CustomEventName.ALL_CARS_RESET);
   };
