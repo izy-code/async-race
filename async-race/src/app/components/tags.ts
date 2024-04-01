@@ -57,3 +57,18 @@ export const form = (
     },
     ...children,
   );
+
+export const thead = (props: TagProps, ...children: ChildrenType[]): BaseComponent<HTMLTableSectionElement> =>
+  new BaseComponent({ ...props, tag: 'thead' }, ...children);
+
+export const tbody = (props: TagProps, ...children: ChildrenType[]): BaseComponent<HTMLTableSectionElement> =>
+  new BaseComponent({ ...props, tag: 'tbody' }, ...children);
+
+export const tr = (props: TagProps, ...children: ChildrenType[]): BaseComponent<HTMLTableRowElement> =>
+  new BaseComponent({ ...props, tag: 'tr' }, ...children);
+
+export const th = (props: TagProps, ...children: ChildrenType[]): BaseComponent<HTMLTableCellElement> =>
+  new BaseComponent({ ...props, tag: 'th' }, ...children);
+
+export const td = (props: TagProps, ...children: ChildrenType[]): BaseComponent<HTMLTableCellElement> =>
+  new BaseComponent({ ...props, tag: 'td' }, ...children);
