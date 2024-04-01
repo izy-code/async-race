@@ -66,19 +66,23 @@
 .garage-page__race-tracks {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .garage-page__track {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
 
 .garage-page__track-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+
+  & button {
+    padding-block: 4px;
+  }
 }
 
 .garage-page__track-name {
@@ -87,16 +91,16 @@
 
 .garage-page__track-container {
   position: relative;
-  height: 110px;
-  border-bottom: 18px dashed $color-granite;
+  height: 58px;
+  border-bottom: 8px dashed $color-granite;
 
   &::after {
     content: "";
     position: absolute;
-    right: 160px;
+    right: 110px;
     bottom: 0;
-    width: 90px;
-    height: 92px;
+    width: 50px;
+    height: 50px;
     background-image: url("../../../assets/images/flag.svg");
     background-size: contain;
     background-repeat: no-repeat;
@@ -107,15 +111,15 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  height: 120px;
+  height: 55px;
   background-color: transparent;
   pointer-events: none;
   appearance: none;
 
   &::-webkit-slider-thumb {
     display: block;
-    width: 160px;
-    height: 100px;
+    width: 110px;
+    height: 70px;
     background-color: var(--color-car);
     mask-image: url("../../../assets/images/car.svg");
     mask-size: 100%;

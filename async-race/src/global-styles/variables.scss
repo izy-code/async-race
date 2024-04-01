@@ -20,5 +20,8 @@ $color-light-red: #e47272;
 $color-red: #db3232;
 $color-dark-red: #c42323;
 
-
 $font-primary: "Roboto", "Arial", sans-serif;
+
+:root {
+  --color-car: $color-iguana-green;
+}
