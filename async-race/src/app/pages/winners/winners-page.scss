@@ -1,0 +1,100 @@
+@use "../../../global-styles/forward" as *;
+
+.winners-page .pagination {
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.winners-page__main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.winners-page__table {
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.winners-page__car-name {
+  font-size: 14px;
+}
+
+.winners-page__table-head {
+  border-top: 2px solid $color-bone;
+}
+
+.winners-page__table-head,
+.winners-page__table-body {
+  border-bottom: 2px solid $color-bone;
+}
+
+.winners-page__table-row {
+  border-bottom: 1px solid $color-bone;
+}
+
+.winners-page__table-head-element {
+  white-space: pre-wrap;
+}
+
+.winners-page__sort-content {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+
+  &::after {
+    display: inline-block;
+    vertical-align: middle;
+    width: 7px;
+    height: 18px;
+    padding-left: 10px;
+    background-color: $color-bone;
+    mask-image: url("../../../assets/icons/arrow.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+  }
+}
+
+.winners-page__sort-element {
+  cursor: pointer;
+  user-select: none;
+
+  &--active .winners-page__sort-content::after {
+    content: "";
+  }
+
+  &--arrow-up .winners-page__sort-content::after {
+    transform: rotate(180deg);
+  }
+
+  &:hover {
+    color: $color-sandy-brown;
+
+    & .winners-page__sort-content::after {
+      background-color: $color-sandy-brown;
+    }
+  }
+}
+
+.winners-page__image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 80px;
+    background-color: var(--color-car);
+    pointer-events: none;
+    mask-image: url("../../../assets/images/car.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+  }
+}
