@@ -14,3 +14,10 @@ export interface Winner {
   time: string;
   wins: string;
 }
+
+export interface WinnersData {
+  winners: (Winner & Car)[];
+  winnersCount: number;
+  currentPage: number;
+  pageCount: number;
+}
