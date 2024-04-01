@@ -15,16 +15,17 @@ enum CustomEventName {
   ALL_CARS_START = 'allCarsStart',
   ALL_CARS_RESET = 'allCarsReset',
   CARS_UPDATE = 'carsUpdate',
+  WINNERS_UPDATE = 'winnersUpdate',
   WINNER_UPDATE = 'winnerUpdate',
+  WINNER_REMOVE = 'winnerRemove',
   MODAL_SHOW = 'modalShow',
+  ROWS_REFILL = 'rowsRefill',
+  ROWS_SORT = 'rowsSort',
 
   CAR_MOVEMENT_VIEW = 'carMovementView',
   CAR_STOP_VIEW = 'carStopView',
   CAR_RESET_VIEW = 'carResetView',
   CAR_SELECTION_VIEW = 'carSelectionView',
-
-  GARAGE_EDIT_DISABLED = 'garageEditDisabled',
-  GARAGE_EDIT_ENABLED = 'garageEditEnabled',
 }
 
 export default CustomEventName;
