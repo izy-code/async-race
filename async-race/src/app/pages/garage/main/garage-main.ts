@@ -2,7 +2,6 @@ import BaseComponent from '@/app/components/base-component';
 import PageInfoComponent from '@/app/components/page-info/page-info';
 import PaginationComponent from '@/app/components/pagination/pagination';
 import { Page } from '@/app/router/pages';
-import type Router from '@/app/router/router';
 import EventEmitter from '@/app/utils/event-emitter';
 import CarCreationComponent from './creation/car-creation';
 import CarUpdateComponent from './update/car-update';
@@ -13,16 +12,13 @@ import RaceTracksComponent from './race-tracks/race-tracks';
 import ModalComponent from './modal/modal';
 
 export default class GarageMainComponent extends BaseComponent {
-  private router: Router;
-
   private emitter: EventEmitter;
 
   private controller: GarageController;
 
-  constructor(router: Router) {
+  constructor() {
     super({ className: 'garage-page__main main', tag: 'main' });
 
-    this.router = router;
     this.emitter = new EventEmitter();
 
     const garageState = new GarageState();
@@ -34,7 +30,7 @@ export default class GarageMainComponent extends BaseComponent {
     const carCreation = new CarCreationComponent(this.emitter);
     const carUpdate = new CarUpdateComponent(this.emitter);
     const raceButtons = new RaceButtonsComponent(this.emitter);
-    const pagination = new PaginationComponent(this.router, this.emitter);
+    const pagination = new PaginationComponent(this.emitter);
     const raceTracks = new RaceTracksComponent(this.emitter);
     const modal = new ModalComponent(this.emitter);
 

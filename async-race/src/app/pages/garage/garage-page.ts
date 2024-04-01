@@ -14,7 +14,7 @@ export default class GaragePageComponent extends BaseComponent {
     this.router = router;
 
     const header = new HeaderComponent(router, Page.GARAGE);
-    const main = new GarageMainComponent(router);
+    const main = new GarageMainComponent();
 
     this.appendChildren([header, main]);
   }
