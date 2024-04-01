@@ -5,7 +5,7 @@ import type { Car, EngineResponse } from '@/app/interfaces';
 import type EventEmitter from '@/app/utils/event-emitter';
 import TrackButtonsComponent from './track-buttons/track-buttons';
 
-const INTERVAL_DURATION_MS = 8;
+const INTERVAL_DURATION_MS = 20;
 
 export default class TrackComponent extends BaseComponent<HTMLDivElement> {
   private track: BaseComponent<HTMLInputElement>;
