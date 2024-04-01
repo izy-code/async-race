@@ -16,6 +16,8 @@ export default class CarUpdateComponent extends BaseComponent<HTMLDivElement> {
 
   private selectedCar: Car | null = null;
 
+  private isButtonDisabled = true;
+
   constructor(emitter: EventEmitter) {
     super({ className: 'garage-page__car-update', tag: 'div' });
 
@@ -49,6 +51,7 @@ export default class CarUpdateComponent extends BaseComponent<HTMLDivElement> {
   private addListeners(): void {
     this.nameInput.addListener('input', () => {
       this.carUpdateButton.getNode().disabled = !this.nameInput.getNode().value;
+      this.isButtonDisabled = this.carUpdateButton.getNode().disabled;
     });
     this.carUpdateButton.addListener('click', this.onCarUpdate);
 
@@ -61,6 +64,12 @@ export default class CarUpdateComponent extends BaseComponent<HTMLDivElement> {
         this.resetFields();
       }
     });
+    this.emitter.on(CustomEventName.RACE_START_CLICK, () => {
+      this.carUpdateButton.setAttribute('disabled', '');
+    });
+    this.emitter.on(CustomEventName.RACE_RESET_CLICK, () => {
+      this.carUpdateButton.getNode().disabled = this.isButtonDisabled;
+    });
   }
 
   private onCarSelection = (selectedCar: Car): void => {
@@ -71,6 +80,7 @@ export default class CarUpdateComponent extends BaseComponent<HTMLDivElement> {
     this.colorInput.removeAttribute('disabled');
     this.nameInput.removeAttribute('disabled');
     this.carUpdateButton.removeAttribute('disabled');
+    this.isButtonDisabled = this.carUpdateButton.getNode().disabled;
   };
 
   private onCarUpdate = (): void => {
@@ -93,5 +103,6 @@ export default class CarUpdateComponent extends BaseComponent<HTMLDivElement> {
     this.colorInput.setAttribute('disabled', '');
     this.nameInput.setAttribute('disabled', '');
     this.carUpdateButton.setAttribute('disabled', '');
+    this.isButtonDisabled = this.carUpdateButton.getNode().disabled;
   };
 }
