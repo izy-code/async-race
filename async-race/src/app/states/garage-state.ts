@@ -93,7 +93,12 @@ export default class GarageState {
     }
   };
 
-  public async getPageInfo(): Promise<{ cars: Car[]; totalCount: string | null; currentPage: number }> {
+  public async getPageInfo(): Promise<{
+    cars: Car[];
+    totalCount: string | null;
+    currentPage: number;
+    pageCount: number;
+  }> {
     const response = await Api.getCars(this.currentPage, MAX_CARS_PER_PAGE);
 
     this.pageCars = response.cars;
@@ -102,7 +107,7 @@ export default class GarageState {
       this.pageCount = Math.ceil(+response.totalCount / MAX_CARS_PER_PAGE);
     }
 
-    return { ...response, currentPage: this.currentPage };
+    return { ...response, currentPage: this.currentPage, pageCount: this.pageCount };
   }
 
   public static async createCar(params: { carName: string; carColor: string }): Promise<void> {
