@@ -2,6 +2,7 @@ import CustomEventName from '../events';
 import type { Car } from '../interfaces';
 import GarageState from '../states/garage-state';
 import type EventEmitter from '../utils/event-emitter';
+import crossPageEmitter from './cross-page-emitter';
 
 export default class GarageController {
   private emitter: EventEmitter;
@@ -44,6 +45,10 @@ export default class GarageController {
         winnerName: winner.name,
         winnerTime: this.state.getWinnersTime(),
       });
+      crossPageEmitter.emit(CustomEventName.WINNER_UPDATE, {
+        car: winner,
+        finishTime: parseFloat(this.state.getWinnersTime()),
+      });
     }
 
     if (!engineStatus) {
@@ -58,6 +63,7 @@ export default class GarageController {
     this.emitter.emit(CustomEventName.PAGE_UPDATE, {
       carsCount: pageInfo.totalCount,
       pageNumber: pageInfo.currentPage,
+      pageCount: pageInfo.pageCount,
     });
   };
 
@@ -74,7 +80,7 @@ export default class GarageController {
   };
 
   private onCarUpdate = async (carData: Car): Promise<void> => {
-    this.emitter.emit(CustomEventName.WINNER_UPDATE, carData);
+    crossPageEmitter.emit(CustomEventName.WINNER_UPDATE, { car: carData });
 
     await GarageState.updateCar(carData);
     await this.onCarsUpdate();
@@ -119,6 +125,8 @@ export default class GarageController {
 
   private onCarRemove = async (car: Car): Promise<void> => {
     await GarageState.deleteCar(car);
+
+    crossPageEmitter.emit(CustomEventName.WINNER_REMOVE, car.id);
 
     const pageInfo = await this.state.getPageInfo();
 
