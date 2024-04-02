@@ -23,6 +23,8 @@ export default class WinnersTableComponent extends BaseComponent<HTMLTableElemen
 
   private sortElements: HTMLTableCellElement[] = [];
 
+  private pageNumber = 1;
+
   constructor(emitter: EventEmitter) {
     super({ className: 'winners-page__table', tag: 'table' });
 
@@ -57,13 +59,19 @@ export default class WinnersTableComponent extends BaseComponent<HTMLTableElemen
 
     this.head.addListener('click', this.onHeadClick);
 
+    emitter.on(CustomEventName.PAGE_UPDATE, ({ pageNumber }: { pageNumber: number }) => {
+      this.pageNumber = pageNumber;
+    });
     emitter.on(CustomEventName.ROWS_REFILL, this.refillTable);
   }
 
-  private static createBodyRows = (winnersData: WinnersData[]): BaseComponent<HTMLTableRowElement>[] =>
+  private createBodyRows = (winnersData: WinnersData[]): BaseComponent<HTMLTableRowElement>[] =>
     winnersData.map((winnerData, dataIndex) => {
       const image = td({ className: 'winners-page__image-container' });
-      const rowNumber = td({ textContent: (dataIndex + 1).toString(), className: 'winners-page__row-number' });
+      const rowNumber = td({
+        textContent: (dataIndex + 1 + (this.pageNumber - 1) * 10).toString(),
+        className: 'winners-page__row-number',
+      });
       const name = td({ textContent: winnerData.name, className: 'winners-page__car-name' });
       const winsCount = td({ textContent: winnerData.wins.toString(), className: 'winners-page__wins-count' });
       const time = td({ textContent: winnerData.time.toString(), className: 'winners-page__time' });
@@ -74,7 +82,7 @@ export default class WinnersTableComponent extends BaseComponent<HTMLTableElemen
     });
 
   private refillTable = (winnersData: WinnersData[]): void => {
-    const bodyRows = WinnersTableComponent.createBodyRows(winnersData);
+    const bodyRows = this.createBodyRows(winnersData);
 
     this.body.removeChildren();
     this.body.appendChildren(bodyRows);

@@ -29,12 +29,12 @@ export default class WinnersController {
     const winnersData = await this.state.getWinners();
 
     if (winnersData) {
-      this.emitter.emit(CustomEventName.ROWS_REFILL, winnersData.winners);
       this.emitter.emit(CustomEventName.PAGE_UPDATE, {
         carsCount: winnersData.winnersCount,
         pageNumber: winnersData.currentPage,
         pageCount: winnersData.pageCount,
       });
+      this.emitter.emit(CustomEventName.ROWS_REFILL, winnersData.winners);
     }
   };
 
@@ -61,11 +61,11 @@ export default class WinnersController {
     if (winnersData.winners.length === 0 && winnersData.currentPage > 1) {
       await this.onPrevPage();
     } else {
-      this.emitter.emit(CustomEventName.ROWS_REFILL, winnersData.winners);
       this.emitter.emit(CustomEventName.PAGE_UPDATE, {
         carsCount: winnersData.winnersCount,
         pageNumber: winnersData.currentPage,
       });
+      this.emitter.emit(CustomEventName.ROWS_REFILL, winnersData.winners);
     }
   };
 
