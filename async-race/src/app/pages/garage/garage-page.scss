@@ -12,7 +12,7 @@
 .garage-page__car-update {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 5px;
 }
 
 .garage-page__car-update {
@@ -21,7 +21,8 @@
 
 .garage-page__update-button,
 .garage-page__create-button {
-  min-width: 134px;
+  min-width: 100px;
+  padding-inline: 5px;
 }
 
 .garage-page__name-input {
@@ -46,6 +47,7 @@
 }
 
 .garage-page__color-input {
+  width: 40px;
   height: 40px;
   border: 2px solid $color-black-olive;
   cursor: pointer;
@@ -54,6 +56,16 @@
     border-color: $color-granite;
     cursor: default;
   }
+}
+
+.garage-page__car-preview {
+  width: 68px;
+  height: 40px;
+  background-color: var(--color-car-preview);
+  mask-image: url("../../../assets/images/car.svg");
+  mask-size: 85%;
+  mask-repeat: no-repeat;
+  mask-position: center;
 }
 
 .garage-page__race-buttons {

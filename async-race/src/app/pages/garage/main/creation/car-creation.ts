@@ -1,8 +1,10 @@
 import BaseComponent from '@/app/components/base-component';
 import ButtonComponent from '@/app/components/button/button';
-import { input } from '@/app/components/tags';
+import { div, input } from '@/app/components/tags';
 import CustomEventName from '@/app/events';
 import type EventEmitter from '@/app/utils/event-emitter';
+
+const DEFAULT_COLOR = '#aaaaaa';
 
 export default class CarCreationComponent extends BaseComponent<HTMLDivElement> {
   private colorInput: BaseComponent<HTMLInputElement>;
@@ -13,13 +15,15 @@ export default class CarCreationComponent extends BaseComponent<HTMLDivElement> 
 
   private isButtonDisabled = true;
 
+  private carPreview: BaseComponent<HTMLDivElement>;
+
   constructor(emitter: EventEmitter) {
     super({ className: 'garage-page__car-creation', tag: 'div' });
 
     this.colorInput = input({
       className: 'garage-page__color-input',
       type: 'color',
-      value: '#aaaaaa',
+      value: DEFAULT_COLOR,
     });
     this.nameInput = input({
       className: 'garage-page__name-input',
@@ -31,11 +35,15 @@ export default class CarCreationComponent extends BaseComponent<HTMLDivElement> 
       textContent: 'Create car',
       buttonType: 'button',
     });
+    this.carPreview = div({
+      className: 'garage-page__car-preview',
+    });
+    this.carPreview.getNode().style.setProperty('--color-car-preview', DEFAULT_COLOR);
 
     this.carCreationButton.getNode().disabled = true;
 
     this.addListeners(emitter);
-    this.appendChildren([this.nameInput, this.colorInput, this.carCreationButton]);
+    this.appendChildren([this.nameInput, this.colorInput, this.carPreview, this.carCreationButton]);
   }
 
   private addListeners(emitter: EventEmitter): void {
@@ -43,7 +51,9 @@ export default class CarCreationComponent extends BaseComponent<HTMLDivElement> 
       this.carCreationButton.getNode().disabled = !this.nameInput.getNode().value;
       this.isButtonDisabled = this.carCreationButton.getNode().disabled;
     });
-
+    this.colorInput.addListener('input', () => {
+      this.carPreview.getNode().style.setProperty('--color-car-preview', this.colorInput.getNode().value);
+    });
     this.carCreationButton.addListener('click', () => {
       const carName = this.nameInput.getNode().value;
       const carColor = this.colorInput.getNode().value;
